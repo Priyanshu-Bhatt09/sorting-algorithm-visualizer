@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorting Algorithm Visualizer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Sorting Algorithm Visualizer 📊</h1>
+        <nav class="controls">
+            <button id="new-array-btn">Generate New Array</button>
+            <div class="control-group">
+                <label for="algo-select">Algorithm:</label>
+                <select id="algo-select">
+                    <option value="bubble">Bubble Sort</option>
+                    <option value="selection">Selection Sort</option>
+                    <option value="insertion">Insertion Sort</option>
+                    <option value="shell">Shell Sort</option>
+                    <option value="cocktail">Cocktail Shaker Sort</option>
+                    <option value="pancake">Pancake Sort</option>
+                    <option value="radix">Radix Sort</option>
+                    <option value="merge">Merge Sort</option>
+                    <option value="quick">Quick Sort</option>
+                    <option value="heap">Heap Sort</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label for="size-slider">Size:</label>
+                <input id="size-slider" type="range" min="10" max="150" value="50">
+            </div>
+            <div class="control-group">
+                <label for="speed-slider">Speed:</label>
+                <input id="speed-slider" type="range" min="1" max="100" value="60">
+            </div>
+            <button id="sort-btn">Sort!</button>
+        </nav>
+    </header>
+    <main>
+        <div id="bar-container"></div>
+        
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
