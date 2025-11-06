@@ -5,12 +5,15 @@ const algoSelect = document.getElementById("algo-select");
 const sizeSlider = document.getElementById("size-slider");
 const speedSlider = document.getElementById("speed-slider");
 const barContainer = document.getElementById("bar-container");
+const caseSelect = document.getElementById("case-select"); // NEW
+const caseInfo = document.getElementById("case-info");     // NEW
 
 // State
 let array = [];
 let isSorting = false;
 let speed = 50;
 let arraySize = 50;
+let caseType = "average"; // default case type
 
 // --- Colors ---
 const PRIMARY_COLOR = '#95a5a6'; // Default bar color
@@ -23,17 +26,31 @@ document.addEventListener("DOMContentLoaded", () => {
     arraySize = parseInt(sizeSlider.value);
     speed = 101 - parseInt(speedSlider.value);
     generateNewArray();
+    updateCaseInfo();
 });
 
 newArrayBtn.addEventListener("click", () => !isSorting && generateNewArray());
 sortBtn.addEventListener("click", () => !isSorting && array.length > 0 && startSorting());
 sizeSlider.addEventListener("input", e => !isSorting && (arraySize = parseInt(e.target.value), generateNewArray()));
 speedSlider.addEventListener("input", e => speed = 101 - parseInt(e.target.value));
+caseSelect.addEventListener("change", e => {   // NEW
+    caseType = e.target.value;
+    generateNewArray();
+    updateCaseInfo();
+});
 window.addEventListener('resize', () => !isSorting && renderBars());
 
 // --- Helper Functions ---
 function generateNewArray() {
-    array = Array.from({ length: arraySize }, () => Math.floor(Math.random() * 96) + 5);
+    if (caseType === "average") {
+        array = Array.from({ length: arraySize }, () => Math.floor(Math.random() * 96) + 5);
+    } else if (caseType === "best") {
+        // Already sorted (ascending)
+        array = Array.from({ length: arraySize }, (_, i) => Math.floor((i / arraySize) * 96) + 5);
+    } else if (caseType === "worst") {
+        // Reverse sorted (descending)
+        array = Array.from({ length: arraySize }, (_, i) => Math.floor(((arraySize - i) / arraySize) * 96) + 5);
+    }
     renderBars();
 }
 
@@ -48,6 +65,15 @@ function renderBars() {
     }
 }
 
+function updateCaseInfo() {
+    const info = {
+        best: "Best Case: Nearly sorted input (minimum time complexity).",
+        worst: "Worst Case: Reverse sorted input (maximum time complexity).",
+        average: "Average Case: Random input (typical performance)."
+    };
+    caseInfo.innerText = info[caseType];
+}
+
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 function toggleControls(state) {
@@ -56,6 +82,7 @@ function toggleControls(state) {
     sortBtn.disabled = state;
     sizeSlider.disabled = state;
     algoSelect.disabled = state;
+    caseSelect.disabled = state;
 }
 
 // --- Main Sorting Logic ---
@@ -79,13 +106,16 @@ async function startSorting() {
 
     await algorithms[selectedAlgo](bars);
 
-    // Final sorted animation after any sort completes
+    // Final sorted animation
     for (let i = 0; i < bars.length; i++) {
         bars[i].style.backgroundColor = SORTED_COLOR;
     }
     
     toggleControls(false);
 }
+
+// --- Sorting Algorithms (rest same as before) ---
+
 
 // --- Sorting Algorithms (Original) ---
 

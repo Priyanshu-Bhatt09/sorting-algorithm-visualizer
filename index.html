@@ -18,8 +18,8 @@
                     <option value="selection">Selection Sort</option>
                     <option value="insertion">Insertion Sort</option>
                     <option value="shell">Shell Sort</option>
-                    <option value="cocktail">Cocktail Shaker Sort</option>
-                    <option value="pancake">Pancake Sort</option>
+                    <!-- <option value="cocktail">Cocktail Shaker Sort</option>
+                    <option value="pancake">Pancake Sort</option> -->
                     <option value="radix">Radix Sort</option>
                     <option value="merge">Merge Sort</option>
                     <option value="quick">Quick Sort</option>
@@ -34,6 +34,15 @@
                 <label for="speed-slider">Speed:</label>
                 <input id="speed-slider" type="range" min="1" max="100" value="60">
             </div>
+            <div class="control-group">
+    <label for="case-select">Case:</label>
+    <select id="case-select">
+        <option value="average">Average Case</option>
+        <option value="best">Best Case</option>
+        <option value="worst">Worst Case</option>
+    </select>
+</div>
+
             <button id="sort-btn">Sort!</button>
         </nav>
     </header>
